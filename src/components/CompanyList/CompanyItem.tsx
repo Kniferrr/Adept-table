@@ -28,7 +28,10 @@ const CompanyItem: React.FC<CompanyItemInterface> = ({
         <td>{company.employee.length}</td>
         <CompanyEditedValue type={"name"} data={company} />
         <td>
-          <button onClick={() => handleRemoveCompany(company.id)}>
+          <button
+            className="addButton"
+            onClick={() => handleRemoveCompany(company.id)}
+          >
             Удалить
           </button>
         </td>

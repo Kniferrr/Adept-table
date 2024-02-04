@@ -25,7 +25,12 @@ const EmployeeItem: React.FC<CompanyItemInterface> = ({
       <EmployeeEditedValue data={e} type={"firstName"} />
       <EmployeeEditedValue data={e} type={"position"} />
       <td>
-        <button onClick={() => handleRemoveEmployee(e.id)}>Удалить</button>
+        <button
+          className="addButton"
+          onClick={() => handleRemoveEmployee(e.id)}
+        >
+          Удалить
+        </button>
       </td>
     </tr>
   );

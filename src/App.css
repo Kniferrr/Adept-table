@@ -45,7 +45,7 @@
 }
 
 .addButton {
-  margin-top: 10px;
+  margin: 3px;
   padding: 8px;
   cursor: pointer;
 }
@@ -126,5 +126,11 @@ td {
 }
 
 td:hover {
-  background-color: #444444;
+  background-color: #555555;
+}
+
+@media (prefers-color-scheme: light) {
+  td:hover {
+    background-color: #d4dbe0;
+  }
 }
