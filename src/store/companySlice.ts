@@ -51,11 +51,14 @@ const companySlice = createSlice({
       }));
     },
     toggleSelectAllEmployees: (state) => {
-      const allSelected = state.companies
-        .flatMap((company) => company.employee)
-        .every((employee) => employee.isSelected);
+      const selectedCompanies = state.companies.filter(
+        (company) => company.isSelected
+      );
+      const allSelected = selectedCompanies.every((company) =>
+        company.employee.every((employee) => employee.isSelected)
+      );
 
-      state.companies.forEach((company) => {
+      selectedCompanies.forEach((company) => {
         company.employee.forEach((employee) => {
           employee.isSelected = !allSelected;
         });

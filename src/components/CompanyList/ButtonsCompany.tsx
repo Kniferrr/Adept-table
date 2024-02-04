@@ -27,7 +27,7 @@ const ButtonsCompany: React.FC = () => {
   };
 
   const handleAddCompany = () => {
-    dispatch(addCompany(newCompany));
+    dispatch(addCompany({ ...newCompany, id: Date.now() + Math.random() }));
     setNewCompany(defaultCompany);
     setFormVisible(false);
   };

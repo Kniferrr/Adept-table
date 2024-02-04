@@ -35,7 +35,7 @@ const ButtonsEmployee: React.FC = () => {
   };
 
   const handleAddCompany = () => {
-    dispatch(addEmployee(newValue));
+    dispatch(addEmployee({ ...newValue, id: Date.now() + Math.random() }));
     setNewValue(defaultEmployee);
     setFormVisible(false);
   };
@@ -44,6 +44,7 @@ const ButtonsEmployee: React.FC = () => {
     const ids: number[] = companies.flatMap((c) =>
       c.employee.filter((e) => e.isSelected).map((e) => e.id)
     );
+    console.log(ids);
     dispatch(removeEmployees(ids));
   };
 
