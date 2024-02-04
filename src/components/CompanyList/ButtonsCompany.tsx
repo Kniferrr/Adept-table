@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCompany, removeCompanies } from "../store/companySlice";
-import { RootState } from "../store";
-import { defaultCompany } from "../store/mocData/CompanyState";
+import { addCompany, removeCompanies } from "../../store/companySlice";
+import { RootState } from "../../store";
+import { defaultCompany } from "../../store/mocData/CompanyState";
+import CompanyForm from "./CompanyForm";
 
 const ButtonsCompany: React.FC = () => {
   const dispatch = useDispatch();
@@ -37,39 +38,15 @@ const ButtonsCompany: React.FC = () => {
   };
   return (
     <>
+      <CompanyForm
+        isFormVisible={isFormVisible}
+        newCompany={newCompany}
+        handleInputChange={(e) => handleInputChange(e)}
+        handleAddCompany={handleAddCompany}
+      />
       <button className="addButton" onClick={handleToggleForm}>
         {isFormVisible ? "Отменить" : "Добавить компанию"}
       </button>
-      {isFormVisible && (
-        <form>
-          <div>
-            <label>
-              Название компании:
-              <input
-                type="text"
-                name="name"
-                value={newCompany.name}
-                onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <div></div>
-          <div>
-            <label>
-              Адрес компании:
-              <input
-                type="text"
-                name="address"
-                value={newCompany.address}
-                onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <button type="button" onClick={handleAddCompany}>
-            Добавить
-          </button>
-        </form>
-      )}
       <button className="addButton" onClick={handleRemoveEmployees}>
         Удалить выделенные компании
       </button>

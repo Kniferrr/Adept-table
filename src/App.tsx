@@ -1,5 +1,5 @@
-import CompanyList from "./components/CompanyList";
-import EmployeeList from "./components/EmployeeList";
+import CompanyList from "./components/CompanyList/CompanyList";
+import EmployeeList from "./components/EmployeeList/EmployeeList";
 import "./App.css";
 import { Provider } from "react-redux";
 import { store } from "./store";

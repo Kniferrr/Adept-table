@@ -1,42 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-export interface Company {
-  address: string;
-  employeeCount: number;
-  isSelected: boolean;
-  id: number;
-  name: string;
-}
-
-export interface CompanyState {
-  companies: Company[];
-}
-
-const initialState: CompanyState = {
-  companies: [
-    {
-      id: 1,
-      name: "Company 1",
-      employeeCount: 2,
-      address: "Address 1",
-      isSelected: false,
-    },
-    {
-      id: 2,
-      name: "Company 2",
-      employeeCount: 3,
-      address: "Address 2",
-      isSelected: false,
-    },
-    {
-      id: 3,
-      name: "Company 3",
-      employeeCount: 2,
-      address: "Address 3",
-      isSelected: false,
-    },
-  ],
-};
+import { initialState } from "./mocData/CompanyState";
+import {
+  Company,
+  editedValueTypeCompany,
+  editedValueTypeEmployee,
+  Employee,
+} from "./types/CompanyState";
 
 const companySlice = createSlice({
   name: "company",
@@ -67,6 +36,69 @@ const companySlice = createSlice({
         (company) => !action.payload.includes(company.id)
       );
     },
+    addEmployee: (state, action: PayloadAction<Employee>) => {
+      const companyId = state.companies.findIndex(
+        (c) => c.id === action.payload.companyId
+      );
+      state.companies[companyId].employee.push(action.payload);
+    },
+    removeEmployees: (state, action: PayloadAction<number[]>) => {
+      state.companies = state.companies.map((company) => ({
+        ...company,
+        employee: company.employee.filter(
+          (e) => !action.payload.includes(e.id)
+        ),
+      }));
+    },
+    toggleSelectAllEmployees: (state) => {
+      const allSelected = state.companies
+        .flatMap((company) => company.employee)
+        .every((employee) => employee.isSelected);
+
+      state.companies.forEach((company) => {
+        company.employee.forEach((employee) => {
+          employee.isSelected = !allSelected;
+        });
+      });
+    },
+    selectEmployee: (state, action: PayloadAction<number>) => {
+      state.companies.forEach((company) => {
+        company.employee.forEach((employee) => {
+          if (employee.id === action.payload) {
+            employee.isSelected = !employee.isSelected;
+          }
+        });
+      });
+    },
+    editCompany: (
+      state,
+      action: PayloadAction<{
+        companyId: number;
+        editedValue: string;
+        type: editedValueTypeCompany;
+      }>
+    ) => {
+      const { companyId, editedValue, type } = action.payload;
+      const companyIndex = state.companies.findIndex((c) => c.id === companyId);
+
+      state.companies[companyIndex][type] = editedValue;
+    },
+    editEmployee: (
+      state,
+      action: PayloadAction<{
+        companyId: number;
+        EmployeeId: number;
+        editedValue: string;
+        type: editedValueTypeEmployee;
+      }>
+    ) => {
+      const { companyId, editedValue, type, EmployeeId } = action.payload;
+      const companyIndex = state.companies.findIndex((c) => c.id === companyId);
+      const employeeIndex = state.companies[companyIndex].employee.findIndex(
+        (e) => e.id === EmployeeId
+      );
+      state.companies[companyIndex].employee[employeeIndex][type] = editedValue;
+    },
   },
 });
 
@@ -75,6 +107,12 @@ export const {
   toggleSelectAllCompanies,
   addCompany,
   removeCompanies,
+  addEmployee,
+  removeEmployees,
+  toggleSelectAllEmployees,
+  selectEmployee,
+  editCompany,
+  editEmployee,
 } = companySlice.actions;
 
 export default companySlice.reducer;

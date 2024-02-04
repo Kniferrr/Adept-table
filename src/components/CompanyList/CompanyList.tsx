@@ -1,13 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store";
+import { RootState } from "../../store";
 import {
   removeCompanies,
   selectCompany,
   toggleSelectAllCompanies,
-} from "../store/companySlice";
-import { CheckboxFilter } from "../helpers/CheckBoxFilter";
+} from "../../store/companySlice";
+import { CheckboxFilter } from "../../helpers/CheckBoxFilter";
 import ButtonsCompany from "./ButtonsCompany";
+import CompanyItem from "./CompanyItem";
 
 const CompanyList: React.FC = () => {
   const dispatch = useDispatch();
@@ -46,27 +47,12 @@ const CompanyList: React.FC = () => {
         </thead>
         <tbody>
           {companies.map((company) => (
-            <tr
+            <CompanyItem
               key={company.id}
-              className={company.isSelected ? "selected-row" : ""}
-            >
-              <td>
-                <input
-                  type="checkbox"
-                  checked={company.isSelected}
-                  readOnly
-                  onClick={() => handleCompanyClick(company.id)}
-                />
-              </td>
-              <td>{company.name}</td>
-              <td>{company.employeeCount}</td>
-              <td>{company.address}</td>
-              <td>
-                <button onClick={() => handleRemoveCompany(company.id)}>
-                  Удалить
-                </button>
-              </td>
-            </tr>
+              company={company}
+              handleCompanyClick={handleCompanyClick}
+              handleRemoveCompany={handleRemoveCompany}
+            />
           ))}
         </tbody>
       </table>

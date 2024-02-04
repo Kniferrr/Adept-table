@@ -1,5 +1,5 @@
 #root {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -12,10 +12,11 @@
   align-items: center;
   justify-content: center;
 }
+
 .company-list,
 .employee-list {
   width: 50%;
-  float: left;
+  display: inline-block;
   padding: 20px;
 }
 
@@ -23,6 +24,11 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  table-layout: fixed;
+}
+.company-list .table,
+.employee-list .table {
+  max-width: 100%;
 }
 
 .table th,
@@ -30,6 +36,9 @@
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .selected-row {
@@ -40,4 +49,83 @@
   margin-top: 10px;
   padding: 8px;
   cursor: pointer;
+}
+
+.add-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  padding: 20px;
+  border: 2px solid #2c3e50;
+  border-radius: 10px;
+  background-color: #34495e;
+  color: #ecf0f1;
+}
+
+.add-form form {
+  width: 100%;
+}
+
+.add-form label {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.add-form input,
+.add-form select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  border: 1px solid #2c3e50;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #2c3e50;
+  color: #ecf0f1;
+}
+
+.add-form button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 15px;
+}
+
+.add-form button:hover {
+  background-color: #2980b9;
+}
+
+td {
+  padding: 12px;
+}
+
+.edit-input {
+  background-color: #2d2d2d;
+  color: #ffffff;
+  border: 1px solid #555555;
+  padding: 8px;
+  width: 80%;
+}
+
+.company-name {
+  max-width: 100%;
+  font-weight: bold;
+  cursor: pointer;
+  display: block;
+  white-space: normal;
+  word-wrap: break-word;
+  line-height: 1.5;
+}
+
+.company-name:hover {
+  text-decoration: underline;
+}
+
+td:hover {
+  background-color: #444444;
 }
